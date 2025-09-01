@@ -1,103 +1,173 @@
+import Footer from "@/components/Footer";
+import HowWeWork from "@/components/HowWeWorks";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen text-white">
+      {/* Navigation */}
+      <Navbar />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      {/* Hero Section */}
+      <div className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-16 lg:py-20 bg-[url('/assets/home/hero.png')] bg-cover bg-center">
+        <h1
+          className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-wider text-center"
+          style={{ fontFamily: "VCR OSD Mono, monospace" }}
+        >
+          Veritas
+        </h1>
+        <p
+          className="text-base sm:text-lg lg:text-2xl mb-10 text-white tracking-wide text-center"
+          style={{ fontFamily: "Manrope, sans-serif" }}
+        >
+          Recheck. Reset. Rethink.
+        </p>
+
+        {/* Search Box */}
+        <div className="w-full max-w-2xl sm:max-w-xl md:max-w-2xl lg:max-w-3xl bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+          <p className="text-sm sm:text-md mb-4">
+            De-platform buzzer. Verify before you share. Paste a username or
+            content link and get the facts in under a minute.
+          </p>
+          <div className="flex flex-col justify-between bg-white py-5 px-5 rounded-2xl">
+            <input
+              type="text"
+              placeholder="Insert username or paste content link here"
+              className="text-black placeholder-gray-400 outline-none text-sm sm:text-lg bg-transparent w-full"
+              style={{ fontFamily: "Manrope, sans-serif" }}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <div className="flex justify-end mt-4">
+              <button className="bg-black text-white px-4 py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-gray-800 transition-colors">
+                Analyze
+              </button>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+
+      {/* Stats Section */}
+      <div className="text-center px-4 sm:px-6 lg:px-32 py-12 flex items-center">
+        <p
+          className="text-base sm:text-lg lg:text-4xl leading-relaxed font-semibold bg-gradient-to-r from-[#0D112C] via-[#8F9ED9] to-[#2F3687] bg-clip-text text-transparent"
+          style={{ fontFamily: "Manrope, sans-serif" }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Every day, you scroll through endless posts. Some inspire, some spark
+          curiosity, some just feel off. 58% of people struggle to tell truth
+          from lies, and 47% blame influencers and politicians.{" "}
+          <br className="hidden sm:block" />
+          How do you know what to trust?
+        </p>
+      </div>
+
+      {/* Main Feature Section */}
+      <div className="px-4 sm:px-6 lg:px-12 pt-16" id="about">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-dark-purple backdrop-blur-sm rounded-3xl p-6 sm:p-8 lg:p-12 border border-slate-700">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              <div className="relative aspect-square lg:aspect-[4/3]">
+                <Image
+                  src="/assets/home/not-found.svg"
+                  alt="About Title"
+                  width={1080}
+                  height={1080}
+                  className="object-contain"
+                />
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-2xl sm:text-3xl lg:text-5xl font-semibold font-Manrope purple-gradient-2 pb-5">
+                  See the Agenda,
+                  <br />
+                  Not Just the Post
+                </h2>
+                <p className="text-sm sm:text-base lg:text-lg">
+                  Buzzers, bots, and viral tricks shape what you see every day.
+                  Many posts are designed to provoke, not inform.
+                </p>
+                <p className="text-sm sm:text-base lg:text-lg">
+                  Veritas helps you stay aware. By uncovering coordinated
+                  behavior and manipulative language, we keep you one step ahead
+                  of misinformation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Cards */}
+      <div className="px-4 sm:px-6 lg:px-12 py-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="bg-dark-purple backdrop-blur-sm rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
+            <div className="flex items-center justify-center mb-4">
+              <Image
+                src="/assets/home/network.svg"
+                alt="Network"
+                width={300}
+                height={300}
+              />
+            </div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold mb-3 purple-gradient-2">
+                Identify Inauthentic Activity
+              </h3>
+              <p className="text-sm">
+                We detect & expose coordinated inauthentic behavior to protect
+                platform integrity.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-dark-purple backdrop-blur-sm rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
+            <div className="flex items-center justify-center mb-4">
+              <Image
+                src="/assets/home/paper.svg"
+                alt="Paper"
+                width={300}
+                height={300}
+              />
+            </div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold mb-3 purple-gradient-2">
+                Analyze Provocative Content
+              </h3>
+              <p className="text-sm">
+                Understand the true intent behind posts designed to divide and
+                provoke.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-dark-purple backdrop-blur-sm rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
+            <div className="flex items-center justify-center mb-4">
+              <Image
+                src="/assets/home/chat.svg"
+                alt="Chat"
+                width={300}
+                height={300}
+              />
+            </div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold mb-3 purple-gradient-2">
+                Gain Instant Clarity
+              </h3>
+              <p className="text-sm">
+                Turn doubt into certainty within seconds, with clear and
+                actionable insights.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* How We Work Section */}
+      <HowWeWork />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
