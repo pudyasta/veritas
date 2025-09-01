@@ -11,10 +11,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-16 lg:py-20 bg-[url('/assets/home/hero.png')] bg-cover bg-center">
-        <h1
-          className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 tracking-wider text-center"
-          style={{ fontFamily: "VCR OSD Mono, monospace" }}
-        >
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl mb-4 tracking-wider text-center !font-vcr">
           Veritas
         </h1>
         <p

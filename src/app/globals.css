@@ -1,12 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 @import "tailwindcss";
 
+@font-face {
+  font-family: "VCR OSD Mono";
+  src: url("/assets/font/VCR_OSD_MONO_1.001.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   font-family: "Manrope", sans-serif;
   scroll-behavior: smooth;
 }
 @theme {
   --color-dark-purple: #0d112c;
+  --font-vcr: "VCR OSD Mono", sans-serif;
 }
 
 body {
