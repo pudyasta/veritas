@@ -1,7 +1,13 @@
 import React from "react";
 import Image from "next/image";
 
-const platforms = [
+interface Platform {
+  name: string;
+  description: string;
+  icon: string;
+}
+
+const platforms: Platform[] = [
   {
     name: "X/Twitter",
     description: "See the real agenda behind trending topics.",

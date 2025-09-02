@@ -1,26 +1,33 @@
 import React from "react";
 import Image from "next/image";
 
-const steps = [
+interface Step {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const steps: Step[] = [
   {
     id: 1,
     title: "Be Curious and Cautious. Spot Something Online",
     description:
       "Scrolling through social media and stumble on a post that feels off? Curious if it’s true, credible, or just buzzer noise?",
-    icon: "/assets/home/curious.svg", // replace with your icon image
+    icon: "/assets/home/curious.svg",
   },
   {
     id: 2,
     title: "Copy and Paste",
     description:
       "Take the username handle or the link of the content. Drop it into our platform.",
-    icon: "/assets/home/search.svg", // replace with your icon image
+    icon: "/assets/home/search.svg",
   },
   {
     id: 3,
     title: "Get the Facts",
     description: "In seconds, receive a clear, easy-to-read analysis.",
-    icon: "/assets/home/fact.svg", // replace with your icon image
+    icon: "/assets/home/fact.svg",
   },
 ];
 
