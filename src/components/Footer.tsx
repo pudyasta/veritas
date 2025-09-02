@@ -6,7 +6,7 @@ type Platform = {
   icon: string;
 };
 
-const platforms: Platform[] = [
+export const platforms: Platform[] = [
   {
     name: "X/Twitter",
     description: "See the real agenda behind trending topics.",
@@ -21,17 +21,17 @@ const platforms: Platform[] = [
     name: "TikTok",
     description: "Detect manufactured viral campaigns.",
     icon: "/assets/social/Tiktok.svg",
-  },
-  {
-    name: "Facebook",
-    description: "Expose the intent behind outrage-bait.",
-    icon: "/assets/social/Facebook.svg",
-  },
-  {
-    name: "YouTube",
-    description: "Gauge the true reaction to any video.",
-    icon: "/assets/social/Youtube.svg",
-  },
+  }
+  // {
+  //   name: "Facebook",
+  //   description: "Expose the intent behind outrage-bait.",
+  //   icon: "/assets/social/Facebook.svg",
+  // },
+  // {
+  //   name: "YouTube",
+  //   description: "Gauge the true reaction to any video.",
+  //   icon: "/assets/social/Youtube.svg",
+  // },
 ];
 
 export default function Footer() {
@@ -60,7 +60,7 @@ export default function Footer() {
           src="/assets/social/x.svg"
           width={60}
         />
-        <Image
+        {/* <Image
           alt="YouTube"
           className="h-24 w-24 drop-shadow-xl"
           height={60}
@@ -73,7 +73,7 @@ export default function Footer() {
           height={60}
           src="/assets/social/Facebook.svg"
           width={60}
-        />
+        /> */}
       </div>
 
       {/* Heading */}

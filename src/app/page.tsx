@@ -1,9 +1,16 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import Footer from "@/components/Footer";
 import HowWeWork from "@/components/HowWeWorks";
 import Navbar from "@/components/Navbar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { platforms } from "@/components/Footer";
 
 export default function Home() {
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("");
+
   return (
     <div className="min-h-screen text-white">
       {/* Navigation */}
@@ -34,7 +41,22 @@ export default function Home() {
               style={{ fontFamily: "Manrope, sans-serif" }}
               type="text"
             />
-            <div className="mt-4 flex justify-end">
+            <div className="mt-4 flex justify-between items-center">
+              <Select value={selectedPlatform} onValueChange={setSelectedPlatform}>
+                <SelectTrigger className="w-48 bg-transparent text-black border border-gray-300">
+                  <SelectValue placeholder="Select Platform" />
+                </SelectTrigger>
+                <SelectContent>
+                  {platforms.map((platform) => (
+                    <SelectItem key={platform.name} value={platform.name}>
+                      <div className="flex items-center gap-2">
+                        <Image src={platform.icon} alt={platform.name} width={20} height={20} />
+                        <span>{platform.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <button className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm">
                 Analyze
               </button>
