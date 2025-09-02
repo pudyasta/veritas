@@ -1,12 +1,11 @@
-import React from "react";
 import Image from "next/image";
 
-interface Step {
+type Step = {
   id: number;
   title: string;
   description: string;
   icon: string;
-}
+};
 
 const steps: Step[] = [
   {
@@ -33,43 +32,43 @@ const steps: Step[] = [
 
 export default function HowWeWork() {
   return (
-    <section className="py-16 min-h-[80vh] flex items-center" id="how-it-works">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col ">
+    <section className="flex min-h-[80vh] items-center py-16" id="how-it-works">
+      <div className="mx-auto flex max-w-7xl flex-col px-6">
         {/* Section Title */}
-        <h2 className="text-3xl block md:text-4xl font-bold purple-gradient-1 mb-12 m-auto">
+        <h2 className="purple-gradient-1 m-auto mb-12 block font-bold text-3xl md:text-4xl">
           How We Works
         </h2>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {steps.map((step, i) => (
             <div
+              className="relative flex flex-col rounded-2xl bg-white p-6 shadow-lg"
               key={step.id}
-              className="bg-white shadow-lg rounded-2xl p-6 flex flex-col relative"
             >
               {/* Number */}
-              <span className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8ebf7] text-[#4c52a2] font-semibold">
+              <span className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-lg bg-[#e8ebf7] font-semibold text-[#4c52a2]">
                 {step.id}
               </span>
 
               {/* Icon */}
               <div className="mb-6">
                 <Image
-                  src={step.icon}
                   alt={step.title}
-                  width={i == 1 ? 500 : 180}
-                  height={180}
                   className="object-contain"
+                  height={180}
+                  src={step.icon}
+                  width={i === 1 ? 500 : 180}
                 />
               </div>
 
               {/* Title */}
-              <h3 className="font-semibold text-lg text-[#4c52a2] mb-2">
+              <h3 className="mb-2 font-semibold text-[#4c52a2] text-lg">
                 {step.title}
               </h3>
 
               {/* Description */}
-              <p className="text-medium text-gray-600">{step.description}</p>
+              <p className="text-gray-600 text-medium">{step.description}</p>
             </div>
           ))}
         </div>

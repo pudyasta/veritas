@@ -1,11 +1,10 @@
-import React from "react";
 import Image from "next/image";
 
-interface Platform {
+type Platform = {
   name: string;
   description: string;
   icon: string;
-}
+};
 
 const platforms: Platform[] = [
   {
@@ -37,52 +36,52 @@ const platforms: Platform[] = [
 
 export default function Footer() {
   return (
-    <section className="w-full py-16 px-6 md:px-12  bg-white" id="platforms">
+    <section className="w-full bg-white px-6 py-16 md:px-12" id="platforms">
       {/* Floating Icons */}
-      <div className="flex justify-center gap-6 mb-10 flex-wrap ">
+      <div className="mb-10 flex flex-wrap justify-center gap-6">
         <Image
-          src="/assets/social/Tiktok.svg"
           alt="TikTok"
-          width={60}
+          className="h-24 w-24 drop-shadow-xl"
           height={60}
-          className="drop-shadow-xl w-24 h-24"
+          src="/assets/social/Tiktok.svg"
+          width={60}
         />
         <Image
-          src="/assets/social/Instagram.svg"
           alt="Instagram"
-          width={60}
+          className="h-24 w-24 drop-shadow-xl"
           height={60}
-          className="drop-shadow-xl w-24 h-24"
+          src="/assets/social/Instagram.svg"
+          width={60}
         />
         <Image
-          src="/assets/social/x.svg"
           alt="Twitter"
-          width={60}
+          className="h-24 w-24 drop-shadow-xl"
           height={60}
-          className="drop-shadow-xl w-24 h-24"
+          src="/assets/social/x.svg"
+          width={60}
         />
         <Image
-          src="/assets/social/Youtube.svg"
           alt="YouTube"
-          width={60}
+          className="h-24 w-24 drop-shadow-xl"
           height={60}
-          className="drop-shadow-xl w-24 h-24"
+          src="/assets/social/Youtube.svg"
+          width={60}
         />
         <Image
-          src="/assets/social/Facebook.svg"
           alt="Facebook"
-          width={60}
+          className="h-24 w-24 drop-shadow-xl"
           height={60}
-          className="drop-shadow-xl w-24 h-24"
+          src="/assets/social/Facebook.svg"
+          width={60}
         />
       </div>
 
       {/* Heading */}
-      <div className="text-center my-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center purple-gradient-1">
+      <div className="my-6 text-center">
+        <h2 className="purple-gradient-1 text-center font-bold text-3xl md:text-4xl">
           Analyze Across All Major Platforms
         </h2>
-        <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+        <p className="mx-auto mt-4 max-w-2xl text-gray-500">
           Our analysis works seamlessly on the social networks you use every day
           to uncover hidden narratives
         </p>
@@ -90,27 +89,27 @@ export default function Footer() {
 
       {/* Platform Cards */}
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12 lg:max-w-7xl m-auto"
+        className="m-auto mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:max-w-7xl"
         id="contact"
       >
         {platforms.map((platform, idx) => (
           <div
+            className="flex flex-col rounded-2xl border border-gray-200 p-6 shadow-sm transition hover:shadow-md"
             key={idx}
-            className="rounded-2xl border border-gray-200 shadow-sm p-6 flex flex-col  hover:shadow-md transition"
           >
-            <div className="drop-shadow-xl w-24 h-24">
+            <div className="h-24 w-24 drop-shadow-xl">
               <Image
-                src={platform.icon}
                 alt={platform.name}
+                fill
                 //   width={50}
                 //   height={50}
-                fill
+                src={platform.icon}
               />
             </div>
-            <h3 className="text-lg font-semibold purple-gradient-1">
+            <h3 className="purple-gradient-1 font-semibold text-lg">
               {platform.name}
             </h3>
-            <p className="text-gray-500 text-sm mt-2">{platform.description}</p>
+            <p className="mt-2 text-gray-500 text-sm">{platform.description}</p>
           </div>
         ))}
       </div>

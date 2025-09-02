@@ -16,33 +16,33 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "bg-white text-dark-purple backdrop-blur-sm shadow-md scale-95 rounded-3xl mt-5"
-          : "md:bg-transparent bg-white text-white scale-100 py-2"
+          ? "mt-5 scale-95 rounded-3xl bg-white text-dark-purple shadow-md backdrop-blur-sm"
+          : "scale-100 bg-white py-2 text-white md:bg-transparent"
       }`}
     >
-      <div className="flex lg:justify-between justify-end items-center px-6 py-6 lg:px-52 ">
+      <div className="flex items-center justify-end px-6 py-6 lg:justify-between lg:px-52">
         {/* Desktop Menu */}
-        <div className={"hidden md:flex justify-between  w-full font-bold"}>
-          <a href="#about" className="hover:text-indigo-300 transition-colors">
+        <div className={"hidden w-full justify-between font-bold md:flex"}>
+          <a className="transition-colors hover:text-indigo-300" href="#about">
             What is Veritas?
           </a>
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#how-it-works"
-            className="hover:text-indigo-300 transition-colors"
           >
             How it Works
           </a>
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#platforms"
-            className="hover:text-indigo-300 transition-colors"
           >
             Platforms
           </a>
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#contact"
-            className="hover:text-indigo-300 transition-colors"
           >
             Contact & Join
           </a>
@@ -50,21 +50,21 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden flex flex-col justify-end items-end space-y-1 "
+          className="flex flex-col items-end justify-end space-y-1 md:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span
-            className={`h-0.5 w-6 bg-black md:bg-current  transition-transform ${
-              isOpen ? "rotate-45 translate-y-2" : ""
+            className={`h-0.5 w-6 bg-black transition-transform md:bg-current ${
+              isOpen ? "translate-y-2 rotate-45" : ""
             }`}
           />
           <span
-            className={`h-0.5 w-6 bg-black md:bg-current transition-opacity ${
+            className={`h-0.5 w-6 bg-black transition-opacity md:bg-current ${
               isOpen ? "opacity-0" : "opacity-100"
             }`}
           />
           <span
-            className={`h-0.5 w-6 bg-black md:bg-current transition-transform ${
+            className={`h-0.5 w-6 bg-black transition-transform md:bg-current ${
               isOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
           />
@@ -73,31 +73,31 @@ export default function Navbar() {
 
       {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="md:hidden flex flex-col space-y-4 px-6 py-6 bg-white text-dark-purple shadow-lg transition-all duration-500 rounded-b-2xl ">
+        <div className="flex flex-col space-y-4 rounded-b-2xl bg-white px-6 py-6 text-dark-purple shadow-lg transition-all duration-500 md:hidden">
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#about"
-            className="hover:text-indigo-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             What is Veritas?
           </a>
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#how-it-works"
-            className="hover:text-indigo-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             How it Works
           </a>
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#platforms"
-            className="hover:text-indigo-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Platforms
           </a>
           <a
+            className="transition-colors hover:text-indigo-300"
             href="#contact"
-            className="hover:text-indigo-300 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Contact & Join
