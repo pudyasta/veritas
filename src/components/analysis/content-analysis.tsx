@@ -1,8 +1,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ChevronDown, AlertTriangle } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import { CategoryBar } from "@/components/analysis/category-bar"
+import { AlertBanner } from "@/components/ui/alert-banner"
 
 const contentData = [113, 35, 8, 4] // Politics, Promotions, Community, Others
 const contentColors = ["blue", "amber", "violet", "gray"] as const
@@ -19,16 +20,10 @@ export function ContentAnalysis() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="bg-[#fff085] p-4 rounded-lg mb-4">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4 text-[#a65f00]" />
-            <span className="text-sm font-medium text-[#a65f00]">Suspicious Content Patterns</span>
-          </div>
-          <p className="text-sm text-[#6a7282]">
-            The majority of this account's posts are misleading and repetitive, with very little authentic or
-            personal content. This indicates coordinated or buzzer-like activity.
-          </p>
-        </div>
+        <AlertBanner
+          title="Suspicious Content Patterns"
+          description="The majority of this account's posts are misleading and repetitive, with very little authentic or personal content. This indicates coordinated or buzzer-like activity."
+        />
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-[#6a7282]">Content Type</span>
@@ -77,6 +72,39 @@ export function ContentAnalysis() {
             <div className="text-right">
               <div className="font-medium">4 posts</div>
               <div className="text-sm text-[#99a1af]">16.8%</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold text-[#101828] mb-4">Top Content</h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-3 bg-[#f8fafc] rounded-lg">
+              <div>
+                <div className="text-sm text-[#99a1af] mb-1">👁 4.2k views | 2 September</div>
+                <div className="font-medium text-[#101828]">"Breaking news!!! [uncited claim]"</div>
+              </div>
+              <Button variant="outline" size="sm">
+                See post
+              </Button>
+            </div>
+            <div className="flex items-center justify-between p-3 bg-[#f8fafc] rounded-lg">
+              <div>
+                <div className="text-sm text-[#99a1af] mb-1">👁 3.1k views | 4 September</div>
+                <div className="font-medium text-[#101828]">"Share this before it gets deleted!"</div>
+              </div>
+              <Button variant="outline" size="sm">
+                See post
+              </Button>
+            </div>
+            <div className="flex items-center justify-between p-3 bg-[#f8fafc] rounded-lg">
+              <div>
+                <div className="text-sm text-[#99a1af] mb-1">👁 2.2k views | 5 September</div>
+                <div className="font-medium text-[#101828]">"His policy are the worst"</div>
+              </div>
+              <Button variant="outline" size="sm">
+                See post
+              </Button>
             </div>
           </div>
         </div>

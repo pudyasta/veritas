@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { AlertTriangle, Info, ChevronDown } from "lucide-react"
+import { Info, ChevronDown } from "lucide-react"
+import { AlertBanner } from "@/components/ui/alert-banner"
 
 export function PostFrequency() {
   return (
@@ -17,15 +18,10 @@ export function PostFrequency() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="bg-[#fff085] p-4 rounded-lg mb-4">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4 text-[#a65f00]" />
-            <span className="text-sm font-medium text-[#a65f00]">Abnormal Post Frequency</span>
-          </div>
-          <p className="text-sm text-[#6a7282]">
-            The account posts at a rate far above normal engagement levels in a short time.
-          </p>
-        </div>
+        <AlertBanner
+          title="Abnormal Post Frequency"
+          description="The account posts at a rate far above normal engagement levels in a short time."
+        />
 
         <div className="grid grid-cols-2 gap-4">
           <div>

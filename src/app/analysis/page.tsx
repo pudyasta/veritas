@@ -2,9 +2,7 @@ import { ProfileCard } from "@/components/analysis/profile-card"
 import { CredibilityScore } from "@/components/analysis/credibility-score"
 import { EngagementMetrics } from "@/components/analysis/engagement-metrics"
 import { ContentAnalysis } from "@/components/analysis/content-analysis"
-import { TopContent } from "@/components/analysis/top-content"
 import { PostFrequency } from "@/components/analysis/post-frequency"
-import { SuspiciousContentTones } from "@/components/analysis/suspicious-content-tones"
 import { SentimentAnalysis } from "@/components/analysis/sentiment-analysis"
 import { WordsCluster } from "@/components/analysis/words-cluster"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -13,7 +11,7 @@ export default function SocialAnalyticsDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f0f2fa] p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="w-full p-2 mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -50,13 +48,11 @@ export default function SocialAnalyticsDashboard() {
               {/* Middle Column - Content Analysis */}
               <div className="space-y-6">
                 <ContentAnalysis />
-                <TopContent />
               </div>
 
               {/* Right Column - Post Frequency & Sentiment */}
               <div className="space-y-6">
                 <PostFrequency />
-                <SuspiciousContentTones />
                 <SentimentAnalysis />
                 <WordsCluster />
               </div>
