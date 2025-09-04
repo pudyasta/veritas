@@ -1,7 +1,7 @@
 "use client";
-import { Card, CardContent } from "@/components/ui/card";
+import { AlertTriangle, Info, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Share2, Info } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { useCredibilityStore } from "@/lib/stores/credibility-store";
 
 export function CredibilityScore() {
@@ -10,8 +10,12 @@ export function CredibilityScore() {
   const calculateFill = (segmentIndex: number) => {
     const segmentStart = segmentIndex * 25;
     const segmentEnd = (segmentIndex + 1) * 25;
-    if (score <= segmentStart) return 0;
-    if (score >= segmentEnd) return 100;
+    if (score <= segmentStart) {
+      return 0;
+    }
+    if (score >= segmentEnd) {
+      return 100;
+    }
     return ((score - segmentStart) / 25) * 100;
   };
 
@@ -23,52 +27,52 @@ export function CredibilityScore() {
   ];
 
   return (
-    <Card className="bg-white border-0 shadow-sm">
+    <Card className="border-0 bg-white shadow-sm">
       <CardContent className="p-6">
         <div className="grid grid-cols-10 gap-4">
           <div className="col-span-3">
-            <div className="flex flex-row items-center mb-1 gap-2">
+            <div className="mb-1 flex flex-row items-center gap-2">
               <h3 className="font-medium text-[#101828]">Credibility Score</h3>
-              <Info className="w-4 h-4 text-[#99a1af]" />
+              <Info className="h-4 w-4 text-[#99a1af]" />
             </div>
-            <div className="text-4xl font-bold text-[#101828] mb-2">
+            <div className="mb-2 font-bold text-4xl text-[#101828]">
               {score}%
             </div>
-            <div className="flex gap-2 w-48">
+            <div className="flex w-48 gap-2">
               {barColors.map((color, index) => (
                 <div
+                  className="relative h-2 flex-1 rounded-full bg-gray-200"
                   key={index}
-                  className="flex-1 h-2 bg-gray-200 rounded-full relative"
                 >
                   <div
                     className={`h-full ${color} rounded-full`}
                     style={{ width: `${calculateFill(index)}%` }}
-                  ></div>
+                  />
                 </div>
               ))}
             </div>
           </div>
           <div className="col-span-7">
-            <div className="flex justify-between mb-4">
+            <div className="mb-4 flex justify-between">
               <Button
-                variant="outline"
+                className="border-[#f0b100] bg-[#fff085] text-[#a65f00] text-xs hover:bg-[#ffdd62]"
                 size="sm"
-                className="text-xs bg-[#fff085] border-[#f0b100] text-[#a65f00] hover:bg-[#ffdd62]"
+                variant="outline"
               >
-                <AlertTriangle className="w-3 h-3 mr-1" />
+                <AlertTriangle className="mr-1 h-3 w-3" />
                 Suspicious Account
               </Button>
               <Button
-                variant="outline"
+                className="border-[#7086fd] bg-[#7086fd] text-white hover:bg-[#52589b]"
                 size="sm"
-                className="bg-[#7086fd] text-white border-[#7086fd] hover:bg-[#52589b]"
+                variant="outline"
               >
-                <Share2 className="w-3 h-3 mr-1" />
+                <Share2 className="mr-1 h-3 w-3" />
                 Share results
               </Button>
             </div>
-            <div className="bg-[#e2e8f0] p-4 rounded-lg">
-              <p className="text-sm text-[#6a7282]">
+            <div className="rounded-lg bg-[#e2e8f0] p-4">
+              <p className="text-[#6a7282] text-sm">
                 This account shows patterns of potentially manipulative or
                 misleading activity. Their content may not be fully reliable.
                 Proceed with caution before engaging or sharing.

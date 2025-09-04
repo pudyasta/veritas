@@ -21,7 +21,7 @@ export const platforms: Platform[] = [
     name: "TikTok",
     description: "Detect manufactured viral campaigns.",
     icon: "/assets/social/Tiktok.svg",
-  }
+  },
   // {
   //   name: "Facebook",
   //   description: "Expose the intent behind outrage-bait.",

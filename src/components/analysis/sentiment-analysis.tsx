@@ -1,13 +1,18 @@
-"use client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Info, ChevronDown } from "lucide-react"
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
-import { AlertBanner } from "@/components/ui/alert-banner"
+"use client";
+import { ChevronDown, Info } from "lucide-react";
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
+import { AlertBanner } from "@/components/ui/alert-banner";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 export function SentimentAnalysis() {
-  const data = [{ positive: 30, negative: 40.5, neutral: 29.5 }]
+  const data = [{ positive: 30, negative: 40.5, neutral: 29.5 }];
 
   const chartConfig = {
     positive: {
@@ -22,31 +27,31 @@ export function SentimentAnalysis() {
       label: "Neutral",
       color: "var(--chart-3)",
     },
-  } satisfies ChartConfig
+  } satisfies ChartConfig;
 
   return (
-    <Card className="bg-white border-0 shadow-sm">
+    <Card className="border-0 bg-white shadow-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CardTitle className="text-[#101828]">Sentiment Analysis</CardTitle>
-            <Info className="w-4 h-4 text-[#99a1af]" />
+            <Info className="h-4 w-4 text-[#99a1af]" />
           </div>
-          <Button variant="outline" size="sm">
-            This week <ChevronDown className="w-3 h-3 ml-1" />
+          <Button size="sm" variant="outline">
+            This week <ChevronDown className="ml-1 h-3 w-3" />
           </Button>
         </div>
       </CardHeader>
       <CardContent>
         <AlertBanner
-          title="Suspicious Content Tones"
           description="Recent posts lean overwhelmingly one-sided in tone (e.g., negative, hostile, or alarmist), with minimal variation."
+          title="Suspicious Content Tones"
         />
-        <div className="flex items-center gap-6 mb-4">
-          <div className="relative w-48 h-48">
+        <div className="mb-4 flex items-center gap-6">
+          <div className="relative h-48 w-48">
             <ChartContainer
-              config={chartConfig}
               className="aspect-square w-full max-w-[192px]"
+              config={chartConfig}
             >
               <RadialBarChart
                 data={data}
@@ -55,55 +60,59 @@ export function SentimentAnalysis() {
                 outerRadius={120}
               >
                 <ChartTooltip
-                  cursor={false}
                   content={<ChartTooltipContent hideLabel />}
+                  cursor={false}
                 />
-                <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+                <PolarRadiusAxis axisLine={false} tick={false} tickLine={false}>
                   <Label
                     content={({ viewBox }) => {
                       if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                         return (
-                          <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
+                          <text
+                            textAnchor="middle"
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                          >
                             <tspan
+                              className="fill-foreground font-bold text-2xl"
                               x={viewBox.cx}
                               y={(viewBox.cy || 0) - 16}
-                              className="fill-foreground text-2xl font-bold"
                             >
                               160
                             </tspan>
                             <tspan
+                              className="fill-muted-foreground"
                               x={viewBox.cx}
                               y={(viewBox.cy || 0) + 4}
-                              className="fill-muted-foreground"
                             >
                               Posts
                             </tspan>
                           </text>
-                        )
+                        );
                       }
                     }}
                   />
                 </PolarRadiusAxis>
                 <RadialBar
+                  className="stroke-2 stroke-transparent"
+                  cornerRadius={5}
                   dataKey="positive"
-                  stackId="a"
-                  cornerRadius={5}
                   fill="var(--color-positive)"
-                  className="stroke-transparent stroke-2"
+                  stackId="a"
                 />
                 <RadialBar
+                  className="stroke-2 stroke-transparent"
+                  cornerRadius={5}
                   dataKey="negative"
-                  stackId="a"
-                  cornerRadius={5}
                   fill="var(--color-negative)"
-                  className="stroke-transparent stroke-2"
+                  stackId="a"
                 />
                 <RadialBar
-                  dataKey="neutral"
-                  stackId="a"
+                  className="stroke-2 stroke-transparent"
                   cornerRadius={5}
+                  dataKey="neutral"
                   fill="var(--color-neutral)"
-                  className="stroke-transparent stroke-2"
+                  stackId="a"
                 />
               </RadialBarChart>
             </ChartContainer>
@@ -111,20 +120,20 @@ export function SentimentAnalysis() {
 
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-[#ff6467] rounded-full"></div>
-              <span className="text-sm text-[#6a7282]">Negative</span>
+              <div className="h-3 w-3 rounded-full bg-[#ff6467]" />
+              <span className="text-[#6a7282] text-sm">Negative</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-[#7bf1a8] rounded-full"></div>
-              <span className="text-sm text-[#6a7282]">Positive</span>
+              <div className="h-3 w-3 rounded-full bg-[#7bf1a8]" />
+              <span className="text-[#6a7282] text-sm">Positive</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-[#ffae4c] rounded-full"></div>
-              <span className="text-sm text-[#6a7282]">Neutral</span>
+              <div className="h-3 w-3 rounded-full bg-[#ffae4c]" />
+              <span className="text-[#6a7282] text-sm">Neutral</span>
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

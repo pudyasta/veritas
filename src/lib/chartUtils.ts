@@ -8,11 +8,14 @@ export const AvailableChartColors = [
   "pink",
   "lime",
   "fuchsia",
-] as const
+] as const;
 
-export type AvailableChartColorsKeys = (typeof AvailableChartColors)[number]
+export type AvailableChartColorsKeys = (typeof AvailableChartColors)[number];
 
-export const getColorClassName = (color: AvailableChartColorsKeys, type: "bg" | "stroke" | "fill" | "text"): string => {
+export const getColorClassName = (
+  color: AvailableChartColorsKeys,
+  type: "bg" | "stroke" | "fill" | "text"
+): string => {
   switch (type) {
     case "bg":
       return {
@@ -25,7 +28,7 @@ export const getColorClassName = (color: AvailableChartColorsKeys, type: "bg" | 
         pink: "bg-pink-500",
         lime: "bg-lime-500",
         fuchsia: "bg-fuchsia-500",
-      }[color]
+      }[color];
     case "stroke":
       return {
         blue: "stroke-blue-500",
@@ -37,7 +40,7 @@ export const getColorClassName = (color: AvailableChartColorsKeys, type: "bg" | 
         pink: "stroke-pink-500",
         lime: "stroke-lime-500",
         fuchsia: "stroke-fuchsia-500",
-      }[color]
+      }[color];
     case "fill":
       return {
         blue: "fill-blue-500",
@@ -49,7 +52,7 @@ export const getColorClassName = (color: AvailableChartColorsKeys, type: "bg" | 
         pink: "fill-pink-500",
         lime: "fill-lime-500",
         fuchsia: "fill-fuchsia-500",
-      }[color]
+      }[color];
     case "text":
       return {
         blue: "text-blue-500",
@@ -61,8 +64,8 @@ export const getColorClassName = (color: AvailableChartColorsKeys, type: "bg" | 
         pink: "text-pink-500",
         lime: "text-lime-500",
         fuchsia: "text-fuchsia-500",
-      }[color]
+      }[color];
     default:
-      return ""
+      return "";
   }
-}
+};

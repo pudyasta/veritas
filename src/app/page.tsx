@@ -1,14 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Footer from "@/components/Footer";
+import { useState } from "react";
+import Footer, { platforms } from "@/components/Footer";
 import HowWeWork from "@/components/HowWeWorks";
 import Navbar from "@/components/Navbar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { platforms } from "@/components/Footer";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Home() {
   const router = useRouter();
@@ -44,16 +49,24 @@ export default function Home() {
               style={{ fontFamily: "Manrope, sans-serif" }}
               type="text"
             />
-            <div className="mt-4 flex justify-between items-center">
-              <Select value={selectedPlatform} onValueChange={setSelectedPlatform}>
-                <SelectTrigger className="w-48 bg-transparent text-black border border-gray-300">
+            <div className="mt-4 flex items-center justify-between">
+              <Select
+                onValueChange={setSelectedPlatform}
+                value={selectedPlatform}
+              >
+                <SelectTrigger className="w-48 border border-gray-300 bg-transparent text-black">
                   <SelectValue placeholder="Select Platform" />
                 </SelectTrigger>
                 <SelectContent>
                   {platforms.map((platform) => (
                     <SelectItem key={platform.name} value={platform.name}>
                       <div className="flex items-center gap-2">
-                        <Image src={platform.icon} alt={platform.name} width={20} height={20} />
+                        <Image
+                          alt={platform.name}
+                          height={20}
+                          src={platform.icon}
+                          width={20}
+                        />
                         <span>{platform.name}</span>
                       </div>
                     </SelectItem>
@@ -61,8 +74,8 @@ export default function Home() {
                 </SelectContent>
               </Select>
               <Button
-                onClick={() => router.push('/analysis')}
                 className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm"
+                onClick={() => router.push("/analysis")}
               >
                 Analyze
               </Button>

@@ -1,29 +1,33 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function ProfileCard() {
   return (
-    <Card className="bg-white border-0 shadow-sm">
+    <Card className="border-0 bg-white shadow-sm">
       <CardContent className="p-6">
-        <div className="flex items-center gap-4 mb-4">
-          <Avatar className="w-16 h-16">
+        <div className="mb-4 flex items-center gap-4">
+          <Avatar className="h-16 w-16">
             <AvatarImage src="/woman-in-yellow-shirt-smiling.jpg" />
             <AvatarFallback>LJ</AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-sm text-[#ff6467]">📷 INSTAGRAM</span>
+            <div className="mb-1 flex items-center gap-2">
+              <span className="text-[#ff6467] text-sm">📷 INSTAGRAM</span>
             </div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-semibold text-[#101828]">@ladyjessica</h2>
-              <div className="w-4 h-4 bg-[#3086f3] rounded-full flex items-center justify-center">
+              <h2 className="font-semibold text-[#101828] text-xl">
+                @ladyjessica
+              </h2>
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[#3086f3]">
                 <span className="text-white text-xs">✓</span>
               </div>
             </div>
-            <p className="text-sm text-[#6a7282]">17.1k followers | 100 following</p>
+            <p className="text-[#6a7282] text-sm">
+              17.1k followers | 100 following
+            </p>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

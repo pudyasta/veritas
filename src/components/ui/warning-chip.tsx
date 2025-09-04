@@ -1,16 +1,14 @@
-import { AlertTriangle } from "lucide-react"
+import { AlertTriangle } from "lucide-react";
 
-interface WarningChipProps {
-  text: string
-}
+type WarningChipProps = {
+  text: string;
+};
 
 export function WarningChip({ text }: WarningChipProps) {
   return (
-    <div className="flex items-center gap-2 mb-2 outline-2 outline-[#FFDD62] bg-[#fff9e3] p-2 rounded-full">
-      <AlertTriangle className="w-4 h-4 font-semibold text-yellow-700" />
-      <span className="text-xs font-semibold text-yellow-700">
-        {text}
-      </span>
+    <div className="mb-2 flex items-center gap-2 rounded-full bg-[#fff9e3] p-2 outline-2 outline-[#FFDD62]">
+      <AlertTriangle className="h-4 w-4 font-semibold text-yellow-700" />
+      <span className="font-semibold text-xs text-yellow-700">{text}</span>
     </div>
-  )
+  );
 }

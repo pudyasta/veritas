@@ -1,10 +1,14 @@
-"use client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ChevronDown } from "lucide-react"
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { AlertBanner } from "@/components/ui/alert-banner"
+"use client";
+import { ChevronDown } from "lucide-react";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import { AlertBanner } from "@/components/ui/alert-banner";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 const engagementData = [
   { metric: "Likes", user: 2500, normal: 1800 },
@@ -12,7 +16,7 @@ const engagementData = [
   { metric: "Comments", user: 200, normal: 150 },
   { metric: "Reach", user: 4200, normal: 2800 },
   { metric: "Saves", user: 800, normal: 400 },
-]
+];
 
 const chartConfig = {
   user: {
@@ -23,37 +27,37 @@ const chartConfig = {
     label: "Normal Baseline",
     color: "var(--chart-2)",
   },
-}
+};
 
 export function EngagementMetrics() {
   return (
-    <Card className="bg-white/70 border-0 shadow-sm">
+    <Card className="border-0 bg-white/70 shadow-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-[#101828]">Engagement Metrics</CardTitle>
-          <Button variant="outline" size="sm">
-            This week <ChevronDown className="w-3 h-3 ml-1" />
+          <Button size="sm" variant="outline">
+            This week <ChevronDown className="ml-1 h-3 w-3" />
           </Button>
         </div>
       </CardHeader>
       <CardContent>
         <AlertBanner
-          title="Suspicious Engagement Detected"
           description="The account's likes, comments, and shares don't match its follower size. This suggests manipulated interactions or artificial boosting."
+          title="Suspicious Engagement Detected"
         />
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-2xl font-bold text-[#0d542b]">12.8%</span>
-          <span className="text-sm text-[#6a7282]">from last week</span>
+        <div className="mb-4 flex items-center gap-2">
+          <span className="font-bold text-2xl text-[#0d542b]">12.8%</span>
+          <span className="text-[#6a7282] text-sm">from last week</span>
         </div>
 
         <ChartContainer
+          className="mx-auto mb-4 aspect-square max-h-[200px]"
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[200px] mb-4"
         >
           <RadarChart data={engagementData}>
             <ChartTooltip
-              cursor={false}
               content={<ChartTooltipContent indicator="line" />}
+              cursor={false}
             />
             <PolarAngleAxis dataKey="metric" />
             <PolarGrid />
@@ -73,25 +77,25 @@ export function EngagementMetrics() {
         </ChartContainer>
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 bg-[#ffe2e2] rounded-lg">
-            <span className="text-sm text-[#6a7282]">Likes</span>
+          <div className="flex items-center justify-between rounded-lg bg-[#ffe2e2] p-3">
+            <span className="text-[#6a7282] text-sm">Likes</span>
             <div className="flex items-center gap-2">
               <span className="font-medium">2.5k</span>
-              <span className="text-sm text-[#0d542b]">↗ 30%</span>
+              <span className="text-[#0d542b] text-sm">↗ 30%</span>
             </div>
           </div>
-          <div className="flex items-center justify-between p-3 bg-[#dcfce7] rounded-lg">
-            <span className="text-sm text-[#6a7282]">Shares</span>
+          <div className="flex items-center justify-between rounded-lg bg-[#dcfce7] p-3">
+            <span className="text-[#6a7282] text-sm">Shares</span>
             <div className="flex items-center gap-2">
               <span className="font-medium">1k</span>
-              <span className="text-sm text-[#0d542b]">↗ 10.1%</span>
+              <span className="text-[#0d542b] text-sm">↗ 10.1%</span>
             </div>
           </div>
-          <div className="flex items-center justify-between p-3 bg-[#f1f5f9] rounded-lg">
-            <span className="text-sm text-[#6a7282]">Comments</span>
+          <div className="flex items-center justify-between rounded-lg bg-[#f1f5f9] p-3">
+            <span className="text-[#6a7282] text-sm">Comments</span>
             <div className="flex items-center gap-2">
               <span className="font-medium">200</span>
-              <span className="text-sm text-[#0d542b]">↗ 2.4%</span>
+              <span className="text-[#0d542b] text-sm">↗ 2.4%</span>
             </div>
           </div>
         </div>
