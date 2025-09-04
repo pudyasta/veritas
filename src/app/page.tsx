@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import HowWeWork from "@/components/HowWeWorks";
 import Navbar from "@/components/Navbar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { platforms } from "@/components/Footer";
 
 export default function Home() {
+  const router = useRouter();
   const [selectedPlatform, setSelectedPlatform] = useState<string>("");
 
   return (
@@ -57,9 +60,12 @@ export default function Home() {
                   ))}
                 </SelectContent>
               </Select>
-              <button className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm">
+              <Button
+                onClick={() => router.push('/analysis')}
+                className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm"
+              >
                 Analyze
-              </button>
+              </Button>
             </div>
           </div>
         </div>

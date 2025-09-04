@@ -7,7 +7,22 @@ import { cn } from "@/lib/utils"
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+const Tooltip: React.FC<
+  React.ComponentProps<typeof TooltipPrimitive.Root> & {
+    asChild?: boolean
+    content?: React.ReactNode
+  }
+> = ({ asChild, content, children, ...props }) => {
+  if (asChild && content !== undefined) {
+    return (
+      <TooltipPrimitive.Root {...props}>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipContent>{content}</TooltipContent>
+      </TooltipPrimitive.Root>
+    )
+  }
+  return <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>
+}
 
 const TooltipTrigger = TooltipPrimitive.Trigger
 
