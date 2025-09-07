@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import { ContentAnalysis } from "@/components/analysis/content-analysis";
 import { CredibilityScore } from "@/components/analysis/credibility-score";
 import { EngagementMetrics } from "@/components/analysis/engagement-metrics";
@@ -6,8 +8,79 @@ import { ProfileCard } from "@/components/analysis/profile-card";
 import { SentimentAnalysis } from "@/components/analysis/sentiment-analysis";
 import { WordsCluster } from "@/components/analysis/words-cluster";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { platform } from "os";
+import { dummyData, dummyIg, dummyTiktok } from "@/lib/dummy";
+import { useSearchParams } from "next/navigation";
 
-export default function SocialAnalyticsDashboard() {
+export default function SocialAnalyticsDashboard(req: Request) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const [userName, setUserName] = useState("");
+  const [platform, setPlatform] = useState("");
+
+  useEffect(() => {
+    const urlParam = searchParams.get("url");
+    if (urlParam) {
+      setUserName(urlParam);
+    }
+    const plt = searchParams.get("platform");
+    if (plt) {
+      setPlatform(plt);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    async function fetchData(userName: string, platform: string) {
+      try {
+        setLoading(true);
+        let res;
+        if (platform === "TikTok") {
+          res = await fetch(
+            `/api/tiktok?platform=${platform}&username=${userName}`
+          );
+        } else if (platform === "Instagram") {
+          res = await fetch(
+            `/api/instagram?platform=${platform}&username=${userName}`
+          );
+        } else {
+          res = await fetch(
+            `/api/twitter?platform=${platform}&username=${userName}`
+          );
+        }
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        const json = await res.json();
+        setData(json);
+        console.log(json);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (userName) {
+      fetchData(userName, platform);
+    }
+  }, [userName, platform]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f0f2fa]">
+        <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-[#3086f3]"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f0f2fa]">
+        <p className="text-red-500">❌ {error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#f0f2fa] p-6">
       <div className="mx-auto w-full space-y-6 p-2">
@@ -24,10 +97,10 @@ export default function SocialAnalyticsDashboard() {
         {/* Profile & Credibility */}
         <div className="flex flex-col gap-6 lg:flex-row">
           <div className="lg:w-1/3">
-            <ProfileCard />
+            <ProfileCard data={data} platform={platform} />
           </div>
           <div className="flex-1">
-            <CredibilityScore />
+            <CredibilityScore data={data.jsonData.credibilityScore} />
           </div>
         </div>
 
@@ -39,26 +112,23 @@ export default function SocialAnalyticsDashboard() {
               Audience Analysis
             </TabsTrigger>
           </TabsList>
+
           <TabsContent className="mt-6" value="key-insights">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              {/* Left Column - Key Insights */}
               <div className="space-y-6">
-                <EngagementMetrics />
+                <EngagementMetrics data={data.jsonData.engagementMetrics} />
               </div>
-
-              {/* Middle Column - Content Analysis */}
               <div className="space-y-6">
-                <ContentAnalysis />
+                <ContentAnalysis data={data.jsonData.contentAnalysis} />
               </div>
-
-              {/* Right Column - Post Frequency & Sentiment */}
               <div className="space-y-6">
-                <PostFrequency />
-                <SentimentAnalysis />
-                <WordsCluster />
+                <PostFrequency data={data.jsonData.postFrequency} />
+                <SentimentAnalysis data={data.jsonData.sentimentSummary} />
+                <WordsCluster data={data.jsonData.wordCluster} />
               </div>
             </div>
           </TabsContent>
+
           <TabsContent className="mt-6" value="audience-analysis">
             <div className="text-center text-gray-500">
               Audience Analysis content will be implemented here.

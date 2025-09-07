@@ -8,7 +8,7 @@ type Platform = {
 
 export const platforms: Platform[] = [
   {
-    name: "X/Twitter",
+    name: "X",
     description: "See the real agenda behind trending topics.",
     icon: "/assets/social/x.svg",
   },

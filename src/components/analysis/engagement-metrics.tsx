@@ -9,6 +9,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { ProfileData } from "@/lib/types/ProfileData";
+import { formatNumber } from "@/lib/analyzeHelper";
 
 const engagementData = [
   { metric: "Likes", user: 2500, normal: 1800 },
@@ -29,7 +31,7 @@ const chartConfig = {
   },
 };
 
-export function EngagementMetrics() {
+export function EngagementMetrics({ data }: any) {
   return (
     <Card className="border-0 bg-white/70 shadow-sm">
       <CardHeader>
@@ -41,12 +43,22 @@ export function EngagementMetrics() {
         </div>
       </CardHeader>
       <CardContent>
-        <AlertBanner
-          description="The account's likes, comments, and shares don't match its follower size. This suggests manipulated interactions or artificial boosting."
-          title="Suspicious Engagement Detected"
-        />
+        {data.warning && data.warning !== "" ? (
+          <AlertBanner
+            description={data.warning}
+            title="Abnormal Post Frequency"
+          />
+        ) : (
+          <div className="rounded-sm bg-[#e2e8f0] p-3 mb-3">
+            <p className="text-[#6a7282] text-xs capitalize">
+              {data.interpretation}
+            </p>
+          </div>
+        )}
         <div className="mb-4 flex items-center gap-2">
-          <span className="font-bold text-2xl text-[#0d542b]">12.8%</span>
+          <span className="font-bold text-2xl text-[#0d542b]">
+            {data.totalComparison.percentageChange}
+          </span>
           <span className="text-[#6a7282] text-sm">from last week</span>
         </div>
 
@@ -77,25 +89,49 @@ export function EngagementMetrics() {
         </ChartContainer>
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between rounded-lg bg-[#ffe2e2] p-3">
+          <div
+            className={`flex items-center justify-between rounded-lg bg-${
+              data.likes.trend === "up" ? "[#dcfce7]" : "[#ffe2e2]"
+            } p-3`}
+          >
             <span className="text-[#6a7282] text-sm">Likes</span>
             <div className="flex items-center gap-2">
-              <span className="font-medium">2.5k</span>
-              <span className="text-[#0d542b] text-sm">↗ 30%</span>
+              <span className="font-medium">
+                {formatNumber(data.likes.thisWeek)}
+              </span>
+              <span className="text-[#0d542b] text-sm">
+                {data.likes.percentageChange}
+              </span>
             </div>
           </div>
-          <div className="flex items-center justify-between rounded-lg bg-[#dcfce7] p-3">
+          <div
+            className={`flex items-center justify-between rounded-lg bg-${
+              data.shares.trend === "up" ? "[#dcfce7]" : "[#ffe2e2]"
+            } p-3`}
+          >
             <span className="text-[#6a7282] text-sm">Shares</span>
             <div className="flex items-center gap-2">
-              <span className="font-medium">1k</span>
-              <span className="text-[#0d542b] text-sm">↗ 10.1%</span>
+              <span className="font-medium">
+                {formatNumber(data.shares.thisWeek)}
+              </span>
+              <span className="text-[#0d542b] text-sm">
+                {data.shares.percentageChange}
+              </span>
             </div>
           </div>
-          <div className="flex items-center justify-between rounded-lg bg-[#f1f5f9] p-3">
+          <div
+            className={`flex items-center justify-between rounded-lg bg-${
+              data.comments.trend === "up" ? "[#dcfce7]" : "[#ffe2e2]"
+            } p-3`}
+          >
             <span className="text-[#6a7282] text-sm">Comments</span>
             <div className="flex items-center gap-2">
-              <span className="font-medium">200</span>
-              <span className="text-[#0d542b] text-sm">↗ 2.4%</span>
+              <span className="font-medium">
+                {formatNumber(data.comments.thisWeek)}
+              </span>
+              <span className="text-[#0d542b] text-sm">
+                {data.comments.percentageChange}
+              </span>
             </div>
           </div>
         </div>

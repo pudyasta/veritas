@@ -3,7 +3,7 @@ import { AlertBanner } from "@/components/ui/alert-banner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function PostFrequency() {
+export function PostFrequency({ data }: any) {
   return (
     <Card className="border-0 bg-white shadow-sm">
       <CardHeader>
@@ -18,22 +18,34 @@ export function PostFrequency() {
         </div>
       </CardHeader>
       <CardContent>
-        <AlertBanner
-          description="The account posts at a rate far above normal engagement levels in a short time."
-          title="Abnormal Post Frequency"
-        />
+        {data.warning && data.warning !== "" ? (
+          <AlertBanner
+            description={data.warning}
+            title="Abnormal Post Frequency"
+          />
+        ) : (
+          <div className="rounded-sm bg-[#e2e8f0] p-3 mb-3">
+            <p className="text-[#6a7282] text-xs capitalize">
+              {data.interpretation}
+            </p>
+          </div>
+        )}
 
         <div className="grid grid-cols-2 gap-4">
           <div>
             <div className="mb-1 text-[#6a7282] text-sm">User Post</div>
-            <div className="font-bold text-2xl text-[#101828]">67 posts</div>
+            <div className="font-bold text-2xl text-[#101828]">
+              {data.daily.totalPosts} posts
+            </div>
             <div className="text-[#99a1af] text-sm">in the last 24 hours</div>
           </div>
           <div>
             <div className="mb-1 text-[#6a7282] text-sm">
               Average Normal Post
             </div>
-            <div className="font-bold text-2xl text-[#101828]">10 posts</div>
+            <div className="font-bold text-2xl text-[#101828]">
+              {data.daily.averageNormalPosts} posts
+            </div>
             <div className="text-[#99a1af] text-sm">in the last 24 hours</div>
           </div>
         </div>

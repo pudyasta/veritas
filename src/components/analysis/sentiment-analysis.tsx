@@ -11,8 +11,14 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export function SentimentAnalysis() {
-  const data = [{ positive: 30, negative: 40.5, neutral: 29.5 }];
+export function SentimentAnalysis({ data }: { data: any }) {
+  const dataRadial = [
+    {
+      positive: data.positive.totalPosts,
+      negative: data.negative.totalPosts,
+      neutral: data.neutral.totalPosts,
+    },
+  ];
 
   const chartConfig = {
     positive: {
@@ -43,10 +49,18 @@ export function SentimentAnalysis() {
         </div>
       </CardHeader>
       <CardContent>
-        <AlertBanner
-          description="Recent posts lean overwhelmingly one-sided in tone (e.g., negative, hostile, or alarmist), with minimal variation."
-          title="Suspicious Content Tones"
-        />
+        {data.warning && data.warning !== "" ? (
+          <AlertBanner
+            description={data.warning}
+            title="Suspicious Content Tones"
+          />
+        ) : (
+          <div className="rounded-sm bg-[#e2e8f0] p-3 mb-3">
+            <p className="text-[#6a7282] text-xs capitalize">
+              {data.interpretation}
+            </p>
+          </div>
+        )}
         <div className="mb-4 flex items-center gap-6">
           <div className="relative h-48 w-48">
             <ChartContainer
@@ -54,7 +68,7 @@ export function SentimentAnalysis() {
               config={chartConfig}
             >
               <RadialBarChart
-                data={data}
+                data={dataRadial}
                 endAngle={180}
                 innerRadius={60}
                 outerRadius={120}
@@ -78,7 +92,9 @@ export function SentimentAnalysis() {
                               x={viewBox.cx}
                               y={(viewBox.cy || 0) - 16}
                             >
-                              160
+                              {dataRadial[0].positive +
+                                dataRadial[0].negative +
+                                dataRadial[0].neutral}
                             </tspan>
                             <tspan
                               className="fill-muted-foreground"
@@ -120,12 +136,12 @@ export function SentimentAnalysis() {
 
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-full bg-[#ff6467]" />
-              <span className="text-[#6a7282] text-sm">Negative</span>
-            </div>
-            <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-[#7bf1a8]" />
               <span className="text-[#6a7282] text-sm">Positive</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-[#ff6467]" />
+              <span className="text-[#6a7282] text-sm">Negative</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-[#ffae4c]" />
