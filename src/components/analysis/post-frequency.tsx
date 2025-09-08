@@ -12,9 +12,9 @@ export function PostFrequency({ data }: any) {
             <CardTitle className="text-[#101828]">Post Frequency</CardTitle>
             <Info className="h-4 w-4 text-[#99a1af]" />
           </div>
-          <Button size="sm" variant="outline">
+          {/* <Button size="sm" variant="outline">
             Last 24 hours <ChevronDown className="ml-1 h-3 w-3" />
-          </Button>
+          </Button> */}
         </div>
       </CardHeader>
       <CardContent>
@@ -35,7 +35,7 @@ export function PostFrequency({ data }: any) {
           <div>
             <div className="mb-1 text-[#6a7282] text-sm">User Post</div>
             <div className="font-bold text-2xl text-[#101828]">
-              {data.daily.totalPosts} posts
+              {data.last24Hours.totalPosts} posts
             </div>
             <div className="text-[#99a1af] text-sm">in the last 24 hours</div>
           </div>
@@ -44,7 +44,7 @@ export function PostFrequency({ data }: any) {
               Average Normal Post
             </div>
             <div className="font-bold text-2xl text-[#101828]">
-              {data.daily.averageNormalPosts} posts
+              {data.last24Hours.averageNormalPosts} posts
             </div>
             <div className="text-[#99a1af] text-sm">in the last 24 hours</div>
           </div>

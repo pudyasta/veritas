@@ -38,7 +38,7 @@ export function ProfileCard({
       <CardContent className="p-6">
         <div className="mb-4 flex items-center gap-4">
           <Avatar className="h-16 w-16">
-            <AvatarImage src={image} />
+            <AvatarImage src={`/api/proxy?url=${encodeURIComponent(image)}`} />
             <AvatarFallback>PP</AvatarFallback>
           </Avatar>
           <div className="flex-1">

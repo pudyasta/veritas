@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import { ContentAnalysis } from "@/components/analysis/content-analysis";
 import { CredibilityScore } from "@/components/analysis/credibility-score";
 import { EngagementMetrics } from "@/components/analysis/engagement-metrics";
@@ -10,7 +12,8 @@ import { WordsCluster } from "@/components/analysis/words-cluster";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { platform } from "os";
 import { dummyData, dummyIg, dummyTiktok } from "@/lib/dummy";
-import { useSearchParams } from "next/navigation";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
+import { set } from "react-hook-form";
 
 export default function SocialAnalyticsDashboard(req: Request) {
   const [data, setData] = useState<any>(null);
@@ -19,6 +22,7 @@ export default function SocialAnalyticsDashboard(req: Request) {
   const searchParams = useSearchParams();
   const [userName, setUserName] = useState("");
   const [platform, setPlatform] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     const urlParam = searchParams.get("url");
@@ -52,18 +56,24 @@ export default function SocialAnalyticsDashboard(req: Request) {
         if (!res.ok) throw new Error(`API error: ${res.status}`);
         const json = await res.json();
         setData(json);
-        console.log(json);
       } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     }
-
     if (userName) {
       fetchData(userName, platform);
     }
   }, [userName, platform]);
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(null);
+        router.push("/");
+      }, 5000);
+    }
+  }, [error, router]);
 
   if (loading) {
     return (
@@ -75,9 +85,14 @@ export default function SocialAnalyticsDashboard(req: Request) {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f0f2fa]">
-        <p className="text-red-500">❌ {error}</p>
-      </div>
+      <>
+        <div className="min-h-screen flex items-center justify-center bg-[#f0f2fa]">
+          <p className="text-red-500">
+            ❌ Something went wrong or the user doesn't exist. We'll redirect
+            you to the home page.
+          </p>
+        </div>
+      </>
     );
   }
 

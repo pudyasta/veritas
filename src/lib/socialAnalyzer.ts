@@ -8,7 +8,8 @@ const aiClient = new OpenAI({ apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY! })
 
 
 async function analyzeSentiment(posts: any[]) {
-  const text = posts.map(p => p.text).join("\n");
+  const text = JSON.stringify(posts);
+
   const res = await aiClient.chat.completions.create({
     model: "gpt-4.1-mini",
     messages: [
@@ -45,48 +46,27 @@ Return the result strictly as a JSON object in this structure:
     "totalComparison": { "thisWeek": 2000, "lastWeek": 1500, "percentageChange": "25%","trend": "up" },
         "interpretation": "generally positive audience reception"
     "warning": "(if any) This account shows patterns of potentially manipulative or misleading activity. Their content may not be fully reliable. Proceed with caution before engaging or sharing."
+    stats: [
+  { metric: "Likes", user: 2500, normal: 1800 },
+  { metric: "Shares", user: 1000, normal: 600 },
+  { metric: "Comments", user: 200, normal: 150 },
+  { metric: "Reach", user: 4200, normal: 2800 },
+  { metric: "Saves", user: 800, normal: 400 },
+]
   },
   "contentAnalysis": {
     "topPosts": [
       {
-        "title": "Celebrating Our Team's Achievements",
+        "title": "title of post 1",
         "likes": 450,
         "shares": 200,
         "views": 1000,
         "comments": 75,
-        "sentiment": "Positive",
-        "url": "https://x.com/idextratime/status/1964554425844011407"
+        "sentiment": "the sentiment conclusion of post 1",
+        "url": "url to post 1 (take from the data)",
+        time: "time of post 1 (take from the data)"
       },
-      {
-        "title": "Upcoming Product Launch",
-        "likes": 350,
-        "shares": 100,
-        "comments": 50,
-        "views": 1000,
-
-        "sentiment": "Neutral",
-        "url": "https://x.com/idextratime/status/1964554425844011407"
-      },
-      {
-        "title": "Customer Feedback Showcase",
-        "likes": 400,
-        "shares": 150,
-        "comments": 25,
-        "views": 1000,
-
-        "sentiment": "Positive",
-        "url": "https://x.com/idextratime/status/1964554425844011407"
-      },
-      {
-        "title": "Other Posts",
-        "likes": 400,
-        "shares": 150,
-        "comments": 25,
-        "views": 1000,
-
-        "sentiment": "Positive",
-        "url": "https://x.com/idextratime/status/1964554425844011407"
-      },
+    
 
     ],
     "categories": [{
@@ -125,11 +105,11 @@ Return the result strictly as a JSON object in this structure:
     "interpretation": "Sentiment words are more frequently associated with positive feedback."
   },
   "postFrequency": {
-      daily: {
+      last24Hours: {
         totalPosts: 100,
         averageNormalPosts: 50,
       },
-      weekly: {
+      last7Days: {
         totalPosts: 100,
         averageNormalPosts: 50,
       },
@@ -143,6 +123,12 @@ Return the result strictly as a JSON object in this structure:
   },
   "finalThoughts": "The data indicates an overall positive sentiment in the discussions..."
 }
+
+Take a few notes below:
+  1. the sum of total post should be the same as the total datas that retrieved from apify
+  2. categories block should cover all of posts that retrieved from APIfy. So get the top categories and then put the rest in the other category.
+  3. take data only within a 1 month period
+
 ` },
     ],
   });
@@ -160,12 +146,14 @@ export async function scrapeAndAnalyze({
   const run = await apifyClient.actor(actorId).call(input);
   const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems();
 
-  const agg = aggregatePosts(items);
+  // const agg = aggregatePosts(items);
   const sentiment = await analyzeSentiment(items);
   const jsonData = JSON.parse(sentiment);
 
+
   return {
     sentiment,
+    items,
     jsonData,
     sample: items.slice(0, 3),
   };

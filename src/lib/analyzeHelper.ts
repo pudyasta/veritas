@@ -11,24 +11,7 @@ export function formatNumber(num: number): string {
   return num.toString();
 }
 
-function getEngagementMetrics(data: any) {
-  const likes = data.sample.reduce((acc: number, p: any) => acc + p.likes, 0);
-  const comments = data.sample.reduce((acc: number, p: any) => acc + p.comments, 0);
-  const shares = data.sample.reduce((acc: number, p: any) => acc + p.shares, 0);
-  const reach = data.sample.reduce((acc: number, p: any) => acc + (p.reach || 0), 0);
 
-  const changePercent = ((data.thisWeekEngagement - data.lastWeekEngagement) / data.lastWeekEngagement) * 100;
-
-  return {
-    change: changePercent.toFixed(1) + "%",
-    metrics: [
-      { metric: "Likes", value: likes },
-      { metric: "Shares", value: shares },
-      { metric: "Comments", value: comments },
-      { metric: "Reach", value: reach },
-    ],
-  };
-}
 
 export function aggregatePosts(posts: any[]) {
   const totalPosts = posts.length;

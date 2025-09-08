@@ -116,7 +116,7 @@ export default function Home() {
                 </SelectContent>
               </Select>
               <Button
-                className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm"
+                className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm hover:cursor-pointer"
                 onClick={() => {
                   console.log(selectedPlatform, userName);
                   selectedPlatform &&

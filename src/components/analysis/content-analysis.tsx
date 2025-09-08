@@ -13,9 +13,9 @@ export function ContentAnalysis({ data }: { data: any }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-[#101828]">Content Analysis</CardTitle>
-          <Button size="sm" variant="outline">
+          {/* <Button size="sm" variant="outline">
             This week <ChevronDown className="ml-1 h-3 w-3" />
-          </Button>
+          </Button> */}
         </div>
       </CardHeader>
       <CardContent>
@@ -35,7 +35,10 @@ export function ContentAnalysis({ data }: { data: any }) {
           <div className="mb-2 flex items-center justify-between">
             <span className="text-[#6a7282] text-sm">Content Type</span>
             <span className="text-[#6a7282] text-sm">
-              {data.categories.reduce((sum: number, c) => sum + c.postCount, 0)}{" "}
+              {data.categories.reduce(
+                (sum: number, c: any) => sum + c.postCount,
+                0
+              )}{" "}
               posts
             </span>
           </div>
@@ -78,14 +81,21 @@ export function ContentAnalysis({ data }: { data: any }) {
           </h3>
           <div className="space-y-4">
             {data.topPosts.map(
-              (p: { title: string; url: string; likes: number }, i: number) => (
+              (
+                p: { title: string; url: string; likes: number; time: string },
+                i: number
+              ) => (
                 <div
                   className="flex items-center justify-between rounded-lg bg-[#f8fafc] p-3"
                   key={p.title}
                 >
                   <div>
                     <div className="mb-1 text-[#99a1af] text-sm">
-                      👁 {formatNumber(p.likes)} views | 2 September
+                      👁 {formatNumber(p.likes)} views |{" "}
+                      {new Date(p.time)
+                        .toLocaleDateString("en-GB")
+                        .split("/")
+                        .join("-")}
                     </div>
                     <div className="font-medium text-[#101828]">{p.title}</div>
                   </div>

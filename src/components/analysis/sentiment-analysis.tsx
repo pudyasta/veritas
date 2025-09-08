@@ -43,9 +43,9 @@ export function SentimentAnalysis({ data }: { data: any }) {
             <CardTitle className="text-[#101828]">Sentiment Analysis</CardTitle>
             <Info className="h-4 w-4 text-[#99a1af]" />
           </div>
-          <Button size="sm" variant="outline">
+          {/* <Button size="sm" variant="outline">
             This week <ChevronDown className="ml-1 h-3 w-3" />
-          </Button>
+          </Button> */}
         </div>
       </CardHeader>
       <CardContent>

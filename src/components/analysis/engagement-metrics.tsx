@@ -37,9 +37,9 @@ export function EngagementMetrics({ data }: any) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-[#101828]">Engagement Metrics</CardTitle>
-          <Button size="sm" variant="outline">
+          {/* <Button size="sm" variant="outline">
             This week <ChevronDown className="ml-1 h-3 w-3" />
-          </Button>
+          </Button> */}
         </div>
       </CardHeader>
       <CardContent>
@@ -66,7 +66,7 @@ export function EngagementMetrics({ data }: any) {
           className="mx-auto mb-4 aspect-square max-h-[200px]"
           config={chartConfig}
         >
-          <RadarChart data={engagementData}>
+          <RadarChart data={data.stats}>
             <ChartTooltip
               content={<ChartTooltipContent indicator="line" />}
               cursor={false}
