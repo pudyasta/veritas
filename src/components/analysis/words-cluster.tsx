@@ -15,7 +15,7 @@ export function WordsCluster({
   const normalizeWords = (words?: string[], color?: string): Word[] =>
     (words ?? []).map((w) => ({
       text: w,
-      value: Math.floor(Math.random() * 100) + 10, // adjust word size variation
+      value: Math.floor(Math.random() * 1000) + 10,
       color,
     }));
 
