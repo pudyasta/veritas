@@ -3,9 +3,22 @@ import { AlertTriangle, Info, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCredibilityStore } from "@/lib/stores/credibility-store";
+import { useEffect } from "react";
 
-export function CredibilityScore() {
-  const { score } = useCredibilityStore();
+export function CredibilityScore({
+  data,
+}: {
+  data: {
+    analysis: string;
+    score: number;
+  };
+}) {
+  const { score, setScore } = useCredibilityStore();
+  useEffect(() => {
+    if (data) {
+      setScore(data.score * 100);
+    }
+  }, []);
 
   const calculateFill = (segmentIndex: number) => {
     const segmentStart = segmentIndex * 25;
@@ -54,14 +67,14 @@ export function CredibilityScore() {
           </div>
           <div className="col-span-7">
             <div className="mb-4 flex justify-between">
-              <Button
+              {/* <Button
                 className="border-[#f0b100] bg-[#fff085] text-[#a65f00] text-xs hover:bg-[#ffdd62]"
                 size="sm"
                 variant="outline"
               >
                 <AlertTriangle className="mr-1 h-3 w-3" />
                 Suspicious Account
-              </Button>
+              </Button> */}
               <Button
                 className="border-[#7086fd] bg-[#7086fd] text-white hover:bg-[#52589b]"
                 size="sm"
@@ -72,11 +85,7 @@ export function CredibilityScore() {
               </Button>
             </div>
             <div className="rounded-lg bg-[#e2e8f0] p-4">
-              <p className="text-[#6a7282] text-sm">
-                This account shows patterns of potentially manipulative or
-                misleading activity. Their content may not be fully reliable.
-                Proceed with caution before engaging or sharing.
-              </p>
+              <p className="text-[#6a7282] text-sm">{data.analysis}</p>
             </div>
           </div>
         </div>

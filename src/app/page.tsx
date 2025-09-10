@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Footer, { platforms } from "@/components/Footer";
 import HowWeWork from "@/components/HowWeWorks";
 import Navbar from "@/components/Navbar";
@@ -18,6 +18,46 @@ import {
 export default function Home() {
   const router = useRouter();
   const [selectedPlatform, setSelectedPlatform] = useState<string>("");
+  const [userName, setUserName] = useState("");
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const handleChange = () => {
+    const input = inputRef.current?.value.trim() || "";
+
+    const regex =
+      /(https?:\/\/)?(www\.)?(tiktok\.com|instagram\.com|twitter\.com|x\.com)[^\s]*/i;
+
+    if (regex.test(input)) {
+      let id = "";
+
+      try {
+        const url = new URL(
+          input.startsWith("http") ? input : `https://${input}`
+        );
+
+        const paths = url.pathname.split("/").filter(Boolean);
+
+        if (url.hostname.includes("tiktok.com")) {
+          setSelectedPlatform("TikTok");
+          id = paths[paths.length - 1].replace(/^@/, "");
+        } else if (url.hostname.includes("instagram.com")) {
+          setSelectedPlatform("Instagram");
+          id = paths[0];
+        } else if (
+          url.hostname.includes("twitter.com") ||
+          url.hostname.includes("x.com")
+        ) {
+          setSelectedPlatform("X");
+          id = paths[0];
+        }
+        setUserName(id);
+      } catch (err) {
+        console.error("Invalid URL:", err);
+      }
+    } else {
+      setUserName(input);
+    }
+  };
 
   return (
     <div className="min-h-screen text-white">
@@ -44,6 +84,8 @@ export default function Home() {
           </p>
           <div className="flex flex-col justify-between rounded-2xl bg-white px-5 py-5">
             <input
+              ref={inputRef}
+              onChange={handleChange}
               className="w-full bg-transparent text-black text-sm placeholder-gray-400 outline-none sm:text-lg"
               placeholder="Insert username or paste content link here"
               style={{ fontFamily: "Manrope, sans-serif" }}
@@ -74,8 +116,15 @@ export default function Home() {
                 </SelectContent>
               </Select>
               <Button
-                className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm"
-                onClick={() => router.push("/analysis")}
+                className="rounded-full bg-black px-4 py-2 font-medium text-white text-xs transition-colors hover:bg-gray-800 sm:text-sm hover:cursor-pointer"
+                onClick={() => {
+                  console.log(selectedPlatform, userName);
+                  selectedPlatform &&
+                    userName &&
+                    router.push(
+                      `/analysis?platform=${selectedPlatform}&url=${userName}`
+                    );
+                }}
               >
                 Analyze
               </Button>
