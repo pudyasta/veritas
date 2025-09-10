@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 interface SearchParamsHandlerProps {
@@ -12,7 +12,7 @@ interface SearchParamsHandlerProps {
 export default function SearchParamsHandler({
   onDataFetched,
   onLoading,
-  onError
+  onError,
 }: SearchParamsHandlerProps) {
   const searchParams = useSearchParams();
   const [userName, setUserName] = useState("");
@@ -31,8 +31,14 @@ export default function SearchParamsHandler({
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    async function fetchData(userName: string, platform: string) {
+  // Use a ref to track the last fetched username and platform to prevent duplicate calls
+  const lastFetchRef = useRef<{ userName: string; platform: string } | null>(
+    null
+  );
+
+  // Memoize the fetchData function to prevent it from being recreated on every render
+  const fetchData = useCallback(
+    async (userName: string, platform: string) => {
       try {
         onLoading(true);
         let res;
@@ -58,12 +64,25 @@ export default function SearchParamsHandler({
       } finally {
         onLoading(false);
       }
-    }
-    
-    if (userName) {
+    },
+    [onDataFetched, onLoading, onError]
+  );
+
+  useEffect(() => {
+    if (
+      userName &&
+      platform &&
+      (!lastFetchRef.current ||
+        lastFetchRef.current.userName !== userName ||
+        lastFetchRef.current.platform !== platform)
+    ) {
+      // Update the last fetch ref
+      lastFetchRef.current = { userName, platform };
+
+      // Fetch the data
       fetchData(userName, platform);
     }
-  }, [userName, platform, onDataFetched, onLoading, onError]);
+  }, [userName, platform, fetchData]);
 
   useEffect(() => {
     if (error) {
@@ -71,7 +90,7 @@ export default function SearchParamsHandler({
         onError(null);
         router.push("/");
       }, 5000);
-      
+
       return () => clearTimeout(timer);
     }
   }, [error, onError, router]);

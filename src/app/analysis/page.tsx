@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 import { ContentAnalysis } from "@/components/analysis/content-analysis";
@@ -30,35 +30,38 @@ export default function SocialAnalyticsDashboard() {
   const [platform, setPlatform] = useState("");
   const router = useRouter();
 
-  const handleDataFetched = (fetchedData: SocialAnalyticsData, platform: string, userName: string) => {
-    setData(fetchedData);
-    setPlatform(platform);
-  };
+  const handleDataFetched = useCallback(
+    (fetchedData: SocialAnalyticsData, platform: string, userName: string) => {
+      setData(fetchedData);
+      setPlatform(platform);
+    },
+    []
+  );
 
-  const handleLoading = (isLoading: boolean) => {
+  const handleLoading = useCallback((isLoading: boolean) => {
     setLoading(isLoading);
-  };
+  }, []);
 
-  const handleError = (error: string | null) => {
+  const handleError = useCallback((error: string | null) => {
     setError(error);
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f0f2fa] p-6">
-      <Suspense 
+      <Suspense
         fallback={
           <div className="min-h-screen flex items-center justify-center bg-[#f0f2fa]">
             <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-[#3086f3]"></div>
           </div>
         }
       >
-        <SearchParamsHandler 
+        <SearchParamsHandler
           onDataFetched={handleDataFetched}
           onLoading={handleLoading}
           onError={handleError}
         />
       </Suspense>
-      
+
       {loading && (
         <div className="min-h-screen flex items-center justify-center bg-[#f0f2fa]">
           <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-[#3086f3]"></div>
@@ -82,7 +85,9 @@ export default function SocialAnalyticsDashboard() {
               <div className="flex h-6 w-6 items-center justify-center rounded bg-[#3086f3]">
                 <span className="text-white text-xs">👥</span>
               </div>
-              <h1 className="font-medium text-[#364153] text-lg">User Results</h1>
+              <h1 className="font-medium text-[#364153] text-lg">
+                User Results
+              </h1>
             </div>
           </div>
 
