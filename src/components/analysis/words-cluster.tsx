@@ -1,5 +1,8 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import WordCloud from "react-d3-cloud";
+import { Word, WordCloud } from "@isoterik/react-word-cloud";
+
 export function WordsCluster({
   data,
 }: {
@@ -9,10 +12,10 @@ export function WordsCluster({
     positiveWords?: string[];
   };
 }) {
-  const normalizeWords = (words?: string[], color?: string) =>
+  const normalizeWords = (words?: string[], color?: string): Word[] =>
     (words ?? []).map((w) => ({
       text: w,
-      value: Math.floor(Math.random() * 8000) + 10,
+      value: Math.floor(Math.random() * 100) + 10, // adjust word size variation
       color,
     }));
 
@@ -26,7 +29,9 @@ export function WordsCluster({
         <CardTitle className="text-[#101828]">Words Cluster</CardTitle>
       </CardHeader>
       <CardContent>
-        <WordCloud data={words} />
+        <div className="w-full h-[300px] flex items-center justify-center">
+          <WordCloud words={words} width={400} height={300} />
+        </div>
       </CardContent>
     </Card>
   );
